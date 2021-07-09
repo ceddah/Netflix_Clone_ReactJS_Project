@@ -13,7 +13,7 @@ export default function BrowseContainer({ slides }) {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [slideRows, setSlideRows] = useState([]);
-    console.log(slides)
+
     const { firebase } = useContext(FirebaseContext);
     const user = firebase.auth().currentUser || {};
   
