@@ -28,14 +28,16 @@ export const Inner = styled.div`
 
 export const Close = styled.button`
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: -25px;
+  top: -25px;
   width: 22px;
   height: 22px;
   opacity: 0.3;
-  background-color: transparent;
+  background-color: #fff;
   border: 0;
+  border-radius: 4px;
   cursor: pointer;
+  transition: opacity 0.1s linear;
   &:hover {
     opacity: 1;
   }

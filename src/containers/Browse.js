@@ -5,6 +5,7 @@ import { FirebaseContext } from '../context/firebase';
 import { Loading, Header, Card, Player } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
+import Fuse from 'fuse.js';
 
 export default function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('series');
@@ -12,7 +13,7 @@ export default function BrowseContainer({ slides }) {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [slideRows, setSlideRows] = useState([]);
-  
+    console.log(slides)
     const { firebase } = useContext(FirebaseContext);
     const user = firebase.auth().currentUser || {};
   
@@ -24,7 +25,18 @@ export default function BrowseContainer({ slides }) {
 
     useEffect(() => {
         setSlideRows(slides[category])
-    }, [slides, category])
+    }, [slides, category]);
+
+    useEffect(() => {
+        const fuse = new Fuse(slideRows, { keys: ['data.description', 'data.title', 'data.genre']});
+        const results = fuse.search(searchTerm).map(({item}) => item);
+
+        if(slideRows.length > 0 && searchTerm.length > 3 && results.length > 0) {
+            setSlideRows(results);
+        } else {
+            setSlideRows(slides[category]);
+        }
+    }, [searchTerm])
 
     return profile.displayName ? (
         <>
