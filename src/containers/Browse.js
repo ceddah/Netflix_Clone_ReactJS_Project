@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import SelectProfilesContainer from './Profies'
 import { FirebaseContext } from '../context/firebase';
+import { Loading } from '../components';
 
 export default function BrowseContainer({ slides }) {
     const [profile, setProfile] = useState({});
